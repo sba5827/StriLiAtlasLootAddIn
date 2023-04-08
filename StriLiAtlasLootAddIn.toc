@@ -1,0 +1,14 @@
+## Interface: 30300
+## Title: StriLiAtlasLootAddIn
+## Author: Truggler
+## OptionalDeps: 
+## Notes:
+## SavedVariablesPerCharacter:  
+## SavedVariables: 
+## Version: 0.1
+
+#@no-lib-strip@
+
+#@end-no-lib-strip@
+
+Core.lua
