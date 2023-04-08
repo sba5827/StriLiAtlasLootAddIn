@@ -12,3 +12,5 @@
 #@end-no-lib-strip@
 
 Core.lua
+Button.xml
+ItemRollInformFrame.lua
