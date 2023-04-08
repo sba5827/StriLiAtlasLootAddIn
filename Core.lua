@@ -24,6 +24,9 @@ end
 
 local function informPlayerOnDemand(textMessage)
 
+	local charName = UnitName("player");
+	CharWhishList = AtlasLootWishList["Own"][charName];
+
 	local itemLink = "|c"..select(3, string.find(textMessage, "|c(.+)|r")).."|r"
 
 	if isItemInWishList(itemLink) then
