@@ -1,3 +1,6 @@
+---------------------
+---PRIVATE SECTION---
+---------------------
 local ItemRollInformFrame = CreateFrame("FRAME", "ItemRollInformFrame", UIParent);
 local frameWidth, frameHeight = 300, 185;
 local buttonWidth, buttonHeight = 50, 24;
@@ -22,7 +25,7 @@ ItemRollInformFrame:SetBackdrop({bgFile="Interface/DialogFrame/UI-DialogBox-Back
                                  insets = { left = 1, right = 1, top = 3, bottom = 3 }
                                 });
 ItemRollInformFrame:SetBackdropBorderColor(0,0,0,1);
-ItemRollInformFrame:Show();
+ItemRollInformFrame:Hide();
 
 local HeaderFontString = ItemRollInformFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge");
 HeaderFontString:SetPoint("TOP", 0, -10);
@@ -100,6 +103,16 @@ ItemLink:SetHeight(iconHeight);
 ItemLink:SetJustifyH("CENTER");
 ItemLink:SetText(itemLink);
 
+--------------------
+---PUBLIC SECTION---
+--------------------
+
+function ItemRollInformFrame_show(aItemLink, aItemID)
+    itemLink = aItemLink;
+    ItemLink:SetText(aItemLink);
+    ItemIcon:SetTexture(GetItemIcon(aItemID));
+    ItemRollInformFrame:Show();
+end
 
 
 

@@ -23,8 +23,11 @@ local function isItemInWishList(aString)
 end
 
 local function informPlayerOnDemand(textMessage)
-	if isItemInWishList(textMessage) then
-		print("ItemFoundInWishList")
+
+	local itemLink = "|c"..select(3, string.find(textMessage, "|c(.+)|r")).."|r"
+
+	if isItemInWishList(itemLink) then
+		ItemRollInformFrame_show(itemLink, getItemIdFromString(itemLink));
 	end
 end
 
