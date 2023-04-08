@@ -5,7 +5,7 @@
 ## Notes:
 ## SavedVariablesPerCharacter:
 ## SavedVariables: StriLi_Master, StriLi_LatestVersion, StriLi_RaidMembersDB_members, StriLi_newRaidGroup, StriLi_ItemHistory, StriLi_RulesTxt, StriLiOptions, StriLiDB
-## Version: 0.1
+## Version: 0.1.0
 
 #@no-lib-strip@
 
