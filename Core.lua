@@ -22,6 +22,16 @@ local function isItemInWishList(aString)
 	return nil;
 end
 
+local function removeFromAtlasWishlist(itemID)
+	for i = 1, table.getn(CharWhishList) do
+		for j = 1, table.getn(CharWhishList[i]) do
+			if tonumber(CharWhishList[i][j][ItemID]) == itemID then
+				CharWhishList[i][j] = nil;
+			end
+		end
+	end
+end
+
 local function informPlayerOnDemand(textMessage)
 
 	local charName = UnitName("player");
