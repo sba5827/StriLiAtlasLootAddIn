@@ -60,10 +60,18 @@ local function localOnEvent(event, ...)
 			local charName = UnitName("player");
 			CharWhishList = AtlasLootWishList["Own"][charName];
 			EventFrame:RegisterEvent("CHAT_MSG_RAID_WARNING");
+			EventFrame:RegisterEvent("CHAT_MSG_LOOT");
 			EventFrame:UnregisterEvent("ADDON_LOADED");
 		end
 	elseif event == "CHAT_MSG_RAID_WARNING" then
 		informPlayerOnDemand(arg1);
+	elseif event == "CHAT_MSG_LOOT" then
+		if string.find(arg1, "Ihr erhaltet") or string.find(arg1, "Ihr bekommt") then
+			if isItemInWishList(arg1) then
+				print("StriLiAtlasLootAddIn entfernt erhaltenes Item von der Wunschliste: ".."|c"..select(3, string.find(arg1, "|c(.+)|r")).."|r")
+			end
+			removeFromAtlasWishlist(getItemIdFromString("|c"..select(3, string.find(arg1, "|c(.+)|r")).."|r"))
+		end
 	end
 	
 end
