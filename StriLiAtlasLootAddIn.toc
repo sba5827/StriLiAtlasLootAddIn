@@ -3,8 +3,8 @@
 ## Author: Truggler
 ## OptionalDeps: 
 ## Notes:
-## SavedVariablesPerCharacter:  
-## SavedVariables: 
+## SavedVariablesPerCharacter:
+## SavedVariables: StriLi_Master, StriLi_LatestVersion, StriLi_RaidMembersDB_members, StriLi_newRaidGroup, StriLi_ItemHistory, StriLi_RulesTxt, StriLiOptions, StriLiDB
 ## Version: 0.1
 
 #@no-lib-strip@
@@ -14,3 +14,8 @@
 Core.lua
 Button.xml
 ItemRollInformFrame.lua
+CommunicationHandler.lua
+ItemHistory.lua
+observables.lua
+RaidMembersDB.lua
+UtilityFunctions.lua

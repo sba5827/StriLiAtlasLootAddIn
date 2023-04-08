@@ -4,6 +4,8 @@ local CharWhishList = nil;
 local ItemID, ItemName, ItemBoss = 2, 4, 5
 local itemLinkPatern = "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?";
 
+local _, _, _, StriLiEnabled = GetAddOnInfo("StriLi")
+
 local function getItemIdFromString(aString) 
 	local _, _, _, _, Id = string.find(aString, itemLinkPatern);
 	return tonumber(Id);
@@ -36,7 +38,7 @@ local function informPlayerOnDemand(textMessage)
 
 	local charName = UnitName("player");
 	CharWhishList = AtlasLootWishList["Own"][charName];
-
+	if not select(3, string.find(textMessage, "|c(.+)|r")) then return end
 	local itemLink = "|c"..select(3, string.find(textMessage, "|c(.+)|r")).."|r"
 
 	if isItemInWishList(itemLink) then
@@ -52,6 +54,9 @@ local function localOnEvent(event, ...)
 			if IsAddOnLoaded("AtlasLoot") then
 				AtlasLootLoaded = true;
 			end
+			if not StriLiEnabled then
+				StriLi_initAddon();
+			end
 		elseif arg1 == "AtlasLoot" then
 			AtlasLootLoaded = true;
 		end
@@ -61,6 +66,10 @@ local function localOnEvent(event, ...)
 			CharWhishList = AtlasLootWishList["Own"][charName];
 			EventFrame:RegisterEvent("CHAT_MSG_RAID_WARNING");
 			EventFrame:RegisterEvent("CHAT_MSG_LOOT");
+			EventFrame:RegisterEvent("PLAYER_LOGOUT");
+			if not StriLiEnabled then
+				EventFrame:RegisterEvent("CHAT_MSG_ADDON");
+			end
 			EventFrame:UnregisterEvent("ADDON_LOADED");
 		end
 	elseif event == "CHAT_MSG_RAID_WARNING" then
@@ -72,6 +81,10 @@ local function localOnEvent(event, ...)
 			end
 			removeFromAtlasWishlist(getItemIdFromString("|c"..select(3, string.find(arg1, "|c(.+)|r")).."|r"))
 		end
+	elseif event == "PLAYER_LOGOUT" and not StriLiEnabled then
+		StriLi_finalizeAddon();
+	elseif event == "CHAT_MSG_ADDON" and not StriLiEnabled then
+		StriLi.CommunicationHandler:On_CHAT_MSG_ADDON(...);
 	end
 	
 end
