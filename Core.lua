@@ -80,6 +80,25 @@ local function informPlayerOnDemand(textMessage)
 	end
 end
 
+local function onRaidLeft()
+
+	if not StriLiEnabled then
+
+		StriLi.master:set("");
+
+		RaidMembersDB:reset();
+		StriLi.ItemHistory:reset();
+
+	end
+
+end
+
+local function checkIfInRaid()
+	if UnitInRaid("player") then
+		onRaidLeft();
+	end
+end
+
 local function localOnEvent(event, ...)
 	
 	if event == "ADDON_LOADED" then
