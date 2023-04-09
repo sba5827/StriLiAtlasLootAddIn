@@ -52,7 +52,7 @@ function StriLi_initAddon()
 
     --StriLi.InitLang()
 
-    local addonVersion = tonumber(GetAddOnMetadata("StriLiAtlasLootAddIn", "Version"));
+    --local addonVersion = tonumber(GetAddOnMetadata("StriLiAtlasLootAddIn", "Version"));
 
     if StriLi_LatestVersion ~= nil then
         --Secure that StriLi_LatestVersion will never be a String.
@@ -60,9 +60,9 @@ function StriLi_initAddon()
     end
 
     if StriLi_LatestVersion == nil then
-        StriLi_LatestVersion = addonVersion;
-    elseif StriLi_LatestVersion < addonVersion then
-        StriLi_LatestVersion = addonVersion;
+        StriLi_LatestVersion = 0.0;
+    elseif StriLi_LatestVersion < 0.0 then
+        StriLi_LatestVersion = 0.0;
     end
     if StriLi_Master == nil then
         StriLi.master = ObservableString:new();
