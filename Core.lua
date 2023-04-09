@@ -3,7 +3,7 @@ local EventFrame =  CreateFrame("FRAME");
 ---@type boolean
 local addonLoaded, AtlasLootLoaded = false, false;
 ---@type table
-local CharWishList = nil;
+local CharWishList;
 ---@type number
 local ItemID, ItemName, ItemBoss = 2, 4, 5
 ---@type string
@@ -145,6 +145,7 @@ local function localOnEvent(event, ...)
 			EventFrame:RegisterEvent("TRADE_ACCEPT_UPDATE");
 			EventFrame:RegisterEvent("BAG_UPDATE");
 			EventFrame:RegisterEvent("PLAYER_LOGOUT");
+			EventFrame:RegisterEvent("PARTY_MEMBERS_CHANGED");
 			if not StriLiEnabled then
 				EventFrame:RegisterEvent("CHAT_MSG_ADDON");
 			end
@@ -176,7 +177,8 @@ local function localOnEvent(event, ...)
 				checkForReceivedItem(bagID);
 			end
 		end);
-
+	elseif event == "PARTY_MEMBERS_CHANGED" then
+		checkIfInRaid();
 	end
 	
 end
