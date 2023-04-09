@@ -127,8 +127,6 @@ if not StriLiEnabled then
 
     function StriLi.CommunicationHandler:On_MasterChanged(newMaster, sender)
 
-        print(newMaster, sender)
-
         if (StriLi.master:get() == sender) or (StriLi.master:get() == "") then
             StriLi.master:set(newMaster);
 

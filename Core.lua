@@ -9,7 +9,7 @@ local ItemID, ItemName, ItemBoss = 2, 4, 5
 ---@type string
 local itemLinkPatern = "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?";
 ---@type string
-local versionPattern = "(d+).(d+).(d+)"
+local versionPattern = "(%d+)\.(%d+)\.(%d+)"
 ---@type boolean
 local playerTradeDone = false;
 ---@type table
@@ -24,7 +24,7 @@ local function checkVersion()
 
 	local versionString = GetAddOnMetadata("StriLiAtlasLootAddIn", "Version");
 
-	local major, minor, patch = string.find(versionString, versionPattern);
+	local _, _, major, minor, patch = string.find(versionString, versionPattern);
 	major, minor, patch = tonumber(major), tonumber(minor), tonumber(patch);
 
 	if StriLiAtlasLootVersion == nil then
@@ -46,18 +46,17 @@ local function checkVersion()
 	end
 
 	if newVersion then
-		print(CONST.msgColorStringStart.."StriLiAtlasLootAddIn: Your version: "..versionString.."|r");
-		print(CONST.msgColorStringStart.."StriLiAtlasLootAddIn: Version available: "..StriLiAtlasLootVersion.major.."."..StriLiAtlasLootVersion.minor.."."..StriLiAtlasLootVersion.patch.."|r");
-		print(CONST.msgColorStringStart.."StriLiAtlasLootAddIn: New version is available on https://github.com/sba5827/StriLiAtlasLootAddIn".."|r");
+		print(CONSTS.msgColorStringStart.."StriLiAtlasLootAddIn: Your version: "..versionString.."|r");
+		print(CONSTS.msgColorStringStart.."StriLiAtlasLootAddIn: Version available: "..StriLiAtlasLootVersion.major.."."..StriLiAtlasLootVersion.minor.."."..StriLiAtlasLootVersion.patch.."|r");
+		print(CONSTS.msgColorStringStart.."StriLiAtlasLootAddIn: New version is available on https://github.com/sba5827/StriLiAtlasLootAddIn".."|r");
 	end
-
 end
 
 ---@param vString string
 ---@return void
 local function versionCompare(vString)
 
-	local major, minor, patch = string.find(vString, versionPattern);
+	local _, _, major, minor, patch = string.find(vString, versionPattern);
 	major, minor, patch = tonumber(major), tonumber(minor), tonumber(patch);
 
 	if StriLiAtlasLootVersion == nil then
@@ -66,15 +65,15 @@ local function versionCompare(vString)
 
 	local newVersion = false
 
-	if (StriLiAtlasLootVersion.patch > patch) then
-		if (StriLiAtlasLootVersion.major >= major) and (StriLiAtlasLootVersion.minor >= minor) then
+	if (StriLiAtlasLootVersion.patch < patch) then
+		if (StriLiAtlasLootVersion.major <= major) and (StriLiAtlasLootVersion.minor <= minor) then
 			newVersion = true;
 		end
-	elseif (StriLiAtlasLootVersion.minor > minor) then
-		if (StriLiAtlasLootVersion.major >= major) then
+	elseif (StriLiAtlasLootVersion.minor < minor) then
+		if (StriLiAtlasLootVersion.major <= major) then
 			newVersion = true;
 		end
-	elseif (StriLiAtlasLootVersion.major > major) then
+	elseif (StriLiAtlasLootVersion.major < major) then
 		newVersion = true;
 	end
 
@@ -231,6 +230,7 @@ local function localOnEvent(event, ...)
 
 	if event == "ADDON_LOADED" then
 		if arg1 == "StriLiAtlasLootAddIn" then
+			checkVersion();
 			addonLoaded = true;
 			if IsAddOnLoaded("AtlasLoot") then
 				AtlasLootLoaded = true;
@@ -250,12 +250,9 @@ local function localOnEvent(event, ...)
 			EventFrame:RegisterEvent("BAG_UPDATE");
 			EventFrame:RegisterEvent("PLAYER_LOGOUT");
 			EventFrame:RegisterEvent("PARTY_MEMBERS_CHANGED");
-			if not StriLiEnabled then
-				EventFrame:RegisterEvent("CHAT_MSG_ADDON");
-			end
+			EventFrame:RegisterEvent("CHAT_MSG_ADDON");
 			EventFrame:UnregisterEvent("ADDON_LOADED");
 			checkForAtlasLoot();
-			checkVersion();
 		end
 	elseif event == "CHAT_MSG_RAID_WARNING" then
 		informPlayerOnDemand(arg1);
@@ -287,6 +284,7 @@ local function localOnEvent(event, ...)
 			end
 		end);
 	elseif event == "PARTY_MEMBERS_CHANGED" then
+		ShoutVersion();
 		checkIfInRaid();
 	end
 
