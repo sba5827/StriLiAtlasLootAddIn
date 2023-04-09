@@ -147,8 +147,6 @@ if not StriLiEnabled then
 
     function StriLi.CommunicationHandler:On_DataChanged(msgString, sender)
 
-        print(msgString, sender)
-
         local _next, name, data, arg;
 
         name, _next = string.match(msgString, CONSTS.nextWordPatern);

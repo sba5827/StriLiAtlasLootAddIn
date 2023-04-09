@@ -4,6 +4,8 @@ local CharWishList = nil;
 local ItemID, ItemName, ItemBoss = 2, 4, 5
 local itemLinkPatern = "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?";
 local playerTradeDone, firstCallItemChange = false, true;
+local timerFrame = CreateFrame("Frame")
+local waitTimeAfterTrade = 0.5; --after trading, items in bag are not updated instant.
 
 local _, _, _, StriLiEnabled = GetAddOnInfo("StriLi")
 
@@ -27,13 +29,23 @@ local function isItemInWishList(aString)
 end
 
 local function removeFromAtlasWishlist(itemID)
-	for i = 1, table.getn(CharWishList) do
-		for j = 1, table.getn(CharWishList[i]) do
-			if tonumber(CharWishList[i][j][ItemID]) == itemID then
-				CharWishList[i][j] = nil;
+
+	local found = true;
+
+	while found do
+		found = false;
+		for i = 1, table.getn(CharWishList) do
+			for j = 1, table.getn(CharWishList[i]) do
+				if CharWishList[i][j] then
+					if tonumber(CharWishList[i][j][ItemID]) == itemID then
+						found = true;
+						table.remove(CharWishList[i], j);
+					end
+				end
 			end
 		end
 	end
+
 end
 
 local function checkForAtlasLoot()
@@ -104,20 +116,24 @@ local function localOnEvent(event, ...)
 		StriLi.CommunicationHandler:On_CHAT_MSG_ADDON(...);
 	elseif event == "TRADE_ACCEPT_UPDATE"then
 		if (arg1 == 1) and (arg2 == 1) then
-			print("trade done...")
 			playerTradeDone = true;
 		end
 	elseif event == "BAG_UPDATE" and playerTradeDone then
 		if arg1 < 0 then return end -- smaller than zero is not an bagID where items are stored from a trade.
+		playerTradeDone = false; --only if trade is done the BAG_UPDATE was called from an item receive ore remove from this trade. Other can be ignored.
 
-		--on a trade the BAG_UPDATE is called twice. in the first call the Item is not registered in the bag. Second call is needed.
-		if not firstCallItemChange then
-			playerTradeDone = false; --only if trade is done the BAG_UPDATE was called from an item receive ore remove from this trade. Other can be ignored.
-			firstCallItemChange = true;
-		else
-			firstCallItemChange = false;
-		end
-		checkForReceivedItem(arg1);
+		local timeToWait = waitTimeAfterTrade;
+		local bagID = arg1;
+		timerFrame:SetScript("OnUpdate", function(_, elapsed)
+
+			timeToWait = timeToWait - elapsed;
+			if timeToWait < 0.0 then
+				-- time exceeded
+				timerFrame:SetScript("OnUpdate", nil);
+				checkForReceivedItem(bagID);
+			end
+		end);
+
 	end
 	
 end
