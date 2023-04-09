@@ -1,20 +1,32 @@
+---@type table
 local EventFrame =  CreateFrame("FRAME");
+---@type boolean
 local addonLoaded, AtlasLootLoaded = false, false;
+---@type table
 local CharWishList = nil;
+---@type number
 local ItemID, ItemName, ItemBoss = 2, 4, 5
+---@type string
 local itemLinkPatern = "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?";
-local playerTradeDone, firstCallItemChange = false, true;
+---@type boolean
+local playerTradeDone = false;
+---@type table
 local timerFrame = CreateFrame("Frame")
+---@type number
 local waitTimeAfterTrade = 0.5; --after trading, items in bag are not updated instant.
-
+---@type number
 local _, _, _, StriLiEnabled = GetAddOnInfo("StriLi")
 
 
+---@param aString string
+---@return number
 local function getItemIdFromString(aString) 
 	local _, _, _, _, Id = string.find(aString, itemLinkPatern);
 	return tonumber(Id);
 end
 
+---@param aString string
+---@return number
 local function isItemInWishList(aString)
 	  
 	for i = 1, table.getn(CharWishList) do
@@ -25,11 +37,14 @@ local function isItemInWishList(aString)
 		end
 	end
 	
-	return nil;
+	return 0;
 end
 
+---@param itemID number
+---@return void
 local function removeFromAtlasWishlist(itemID)
 
+	---@type boolean
 	local found = true;
 
 	while found do
@@ -56,6 +71,8 @@ local function checkForAtlasLoot()
 	end
 end
 
+---@param bagID number
+---@return void
 local function checkForReceivedItem(bagID)
 	local numberOfSlots = GetContainerNumSlots(bagID);
 
@@ -68,6 +85,8 @@ local function checkForReceivedItem(bagID)
 
 end
 
+---@param textMessage string
+---@return void
 local function informPlayerOnDemand(textMessage)
 
 	local charName = UnitName("player");
@@ -80,6 +99,7 @@ local function informPlayerOnDemand(textMessage)
 	end
 end
 
+---@return void
 local function onRaidLeft()
 
 	if not StriLiEnabled then
@@ -93,12 +113,16 @@ local function onRaidLeft()
 
 end
 
+---@return void
 local function checkIfInRaid()
 	if UnitInRaid("player") then
 		onRaidLeft();
 	end
 end
 
+---@param event string
+---@param ... any
+---@return void
 local function localOnEvent(event, ...)
 	
 	if event == "ADDON_LOADED" then
