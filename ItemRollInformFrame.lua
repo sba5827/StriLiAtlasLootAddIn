@@ -103,6 +103,23 @@ ItemLink:SetHeight(iconHeight);
 ItemLink:SetJustifyH("CENTER");
 ItemLink:SetText(itemLink);
 
+local StriLiPersonalTallyMarkFrame = ItemRollInformFrame:CreateFontString("StriLiPersonalTallyMarkFrame", "ARTWORK", "GameFontNormal");
+StriLiPersonalTallyMarkFrame:SetPoint("CENTER", 0, -iconHeight);
+StriLiPersonalTallyMarkFrame:SetJustifyH("CENTER");
+StriLiPersonalTallyMarkFrame:SetText("InitialDummy");
+
+local function updateTallyMarkString()
+    if StriLi.master:get() ~= "" then
+        local playerMarks = RaidMembersDB:get(UnitName("player"));
+        if playerMarks == nil then return end
+
+        StriLiPersonalTallyMarkFrame:SetText("Deine Striche: Main: "..playerMarks["Main"]:get().." Sec: "..playerMarks["Sec"]:get().." Token: "..playerMarks["Token"]:get()+playerMarks["TokenSec"]:get().." Fail: "..playerMarks["Fail"]:get());
+        StriLiPersonalTallyMarkFrame:Show();
+    else
+        StriLiPersonalTallyMarkFrame:Hide();
+    end
+end
+
 --------------------
 ---PUBLIC SECTION---
 --------------------
@@ -111,6 +128,7 @@ function ItemRollInformFrame_show(aItemLink, aItemID)
     itemLink = aItemLink;
     ItemLink:SetText(aItemLink);
     ItemIcon:SetTexture(GetItemIcon(aItemID));
+    updateTallyMarkString();
     ItemRollInformFrame:Show();
 end
 

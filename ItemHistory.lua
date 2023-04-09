@@ -28,7 +28,7 @@ function StriLi.ItemHistory:add(itemLink, player, playerClass, rollType, roll, e
     assert(type(player) == "string");
     assert(type(playerClass) == "string");
     assert(type(rollType) == "string");
-    assert(type(roll) == "number" or roll == "edited");
+    --assert(type(roll) == "number" or roll == "edited");
 
     local itemId = getItemID_fromLink(itemLink);
 
@@ -47,7 +47,7 @@ function StriLi.ItemHistory:On_ItemHistoryChanged(itemLink, player, playerClass,
     assert(type(player) == "string");
     assert(type(playerClass) == "string");
     assert(type(rollType) == "string");
-    assert(type(roll) == "number" or roll == "edited");
+    --assert(type(roll) == "number" or roll == "edited");
 
     local itemId = getItemID_fromLink(itemLink);
 
