@@ -102,7 +102,7 @@ local function isItemInWishList(aString)
 		end
 	end
 	
-	return 0;
+	return nil;
 end
 
 ---@param itemID number
