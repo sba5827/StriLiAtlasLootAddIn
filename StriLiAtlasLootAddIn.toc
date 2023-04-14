@@ -11,6 +11,7 @@
 
 #@end-no-lib-strip@
 
+Localization.lua
 Core.lua
 Button.xml
 ItemRollInformFrame.lua

@@ -5,7 +5,6 @@ local ItemRollInformFrame = CreateFrame("FRAME", "ItemRollInformFrame", UIParent
 local frameWidth, frameHeight = 300, 185;
 local buttonWidth, buttonHeight = 50, 24;
 local iconWidth, iconHeight = 46, 46;
-local headerText = "Folgendes Item auf deiner Wunschliste wird verrollt.";
 local itemLink = "|cffffffff|Hitem:6948:0000:0000:0000:0000:0:0:0:80|h[Das ist ein Dummy Item Text]|h|r";
 
 local function onClickRoll(range)
@@ -29,7 +28,7 @@ ItemRollInformFrame:Hide();
 
 local HeaderFontString = ItemRollInformFrame:CreateFontString("ARTWORK", nil, "GameFontNormalLarge");
 HeaderFontString:SetPoint("TOP", 0, -10);
-HeaderFontString:SetText(headerText);
+HeaderFontString:SetText(StriLiAtlasLootAdIn.Lang.ItemRollFrame.headerText);
 HeaderFontString:SetWidth(frameWidth*0.9);
 HeaderFontString:SetJustifyH("CENTER");
 
@@ -50,7 +49,7 @@ SecRollButton:Show();
 local PassRollButton = CreateFrame("BUTTON", "PassRollButton", ItemRollInformFrame, "StriLi_Custom_Button_Template");
 PassRollButton:SetPoint("BOTTOM",70,10);
 PassRollButton:SetSize(buttonWidth, buttonHeight);
-PassRollButton:SetText("Passen");
+PassRollButton:SetText(StriLiAtlasLootAdIn.Lang.ItemRollFrame.buttonPass);
 PassRollButton:SetScript("OnClick", function(self, button, down) ItemRollInformFrame:Hide() end);
 PassRollButton:Show();
 
@@ -113,7 +112,7 @@ local function updateTallyMarkString()
         local playerMarks = RaidMembersDB:get(UnitName("player"));
         if playerMarks == nil then return end
 
-        StriLiPersonalTallyMarkFrame:SetText("Deine Striche: Main: "..playerMarks["Main"]:get().." Sec: "..playerMarks["Sec"]:get().." Token: "..playerMarks["Token"]:get()+playerMarks["TokenSec"]:get().." Fail: "..playerMarks["Fail"]:get());
+        StriLiPersonalTallyMarkFrame:SetText(string.format(StriLiAtlasLootAdIn.Lang.ItemRollFrame.tallymarksText, playerMarks["Main"]:get(), playerMarks["Sec"]:get(), playerMarks["Token"]:get()+playerMarks["TokenSec"]:get(), playerMarks["Fail"]:get()));
         StriLiPersonalTallyMarkFrame:Show();
     else
         StriLiPersonalTallyMarkFrame:Hide();
@@ -124,9 +123,12 @@ end
 ---PUBLIC SECTION---
 --------------------
 
-function ItemRollInformFrame_show(aItemLink, aItemID)
-    itemLink = aItemLink;
-    ItemLink:SetText(aItemLink);
+function ItemRollInformFrame_show(aItemID)
+
+    local _, localItemLink = GetItemInfo(aItemID)
+
+    itemLink = localItemLink;
+    ItemLink:SetText(localItemLink);
     ItemIcon:SetTexture(GetItemIcon(aItemID));
     updateTallyMarkString();
     ItemRollInformFrame:Show();
