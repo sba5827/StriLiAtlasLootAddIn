@@ -46,9 +46,9 @@ local function checkVersion()
 	end
 
 	if newVersion then
-		print(CONSTS.msgColorStringStart.."StriLiAtlasLootAddIn: Your version: "..versionString.."|r");
-		print(CONSTS.msgColorStringStart.."StriLiAtlasLootAddIn: Version available: "..StriLiAtlasLootVersion.major.."."..StriLiAtlasLootVersion.minor.."."..StriLiAtlasLootVersion.patch.."|r");
-		print(CONSTS.msgColorStringStart.."StriLiAtlasLootAddIn: New version is available on https://github.com/sba5827/StriLiAtlasLootAddIn".."|r");
+		print(CONSTS.msgColorStringStart..StriLiAtlasLootAdIn.Lang.YourVersion..versionString.."|r");
+		print(CONSTS.msgColorStringStart..StriLiAtlasLootAdIn.Lang.AvailableVersion..StriLiAtlasLootVersion.major.."."..StriLiAtlasLootVersion.minor.."."..StriLiAtlasLootVersion.patch.."|r");
+		print(CONSTS.msgColorStringStart..StriLiAtlasLootAdIn.Lang.GithubLinkVersion.."|r");
 	end
 end
 
@@ -170,7 +170,7 @@ local function checkForAtlasLoot()
 	local _, _, _, AtlasLootEnabled = GetAddOnInfo("AtlasLoot")
 
 	if not AtlasLootEnabled then
-		print("|cffff3333 AtlasLoot not found. StriLiAtlasLootAddIn Addon only works properly with AtlasLoot installed/enabled. |r");
+		print("|cffff3333 "..StriLiAtlasLootAdIn.Lang.AtlasLootNotFound.." |r");
 	end
 end
 
@@ -198,7 +198,7 @@ local function informPlayerOnDemand(textMessage)
 	local itemLink = "|c"..select(3, string.find(textMessage, "|c(.+)|r")).."|r"
 
 	if isItemInWishList(itemLink) then
-		ItemRollInformFrame_show(itemLink, getItemIdFromString(itemLink));
+		ItemRollInformFrame_show(getItemIdFromString(itemLink));
 	end
 end
 
