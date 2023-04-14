@@ -4,9 +4,11 @@ local deDE = {
     AvailableVersion = "StriLiAtlasLootAddIn: Verfügbare Version:",
     GithubLinkVersion = "StriLiAtlasLootAddIn: Neue Version ist unter https://github.com/sba5827/StriLiAtlasLootAddIn verfügbar",
     AtlasLootNotFound = "AtlasLoot nicht gefunden. StriLiAtlasLootAddIn funktioniert nur richtig, wenn AtlasLoot installiert/aktiviert ist.",
+    NotANumber = "Es muss eine Zahl größer 0 eingegeben werden",
     ItemRollFrame = {
         headerText = "Folgendes Item auf deiner Wunschliste wird verrollt.",
         buttonPass = "Passen",
+        buttonRoll = "Würfeln",
         tallymarksText = "Deine Striche: Main: %d Sec: %d Token: %d Fail: %d"
     }
 };
@@ -15,9 +17,11 @@ local enGB = {
     AvailableVersion = "StriLiAtlasLootAddIn: Version available: ",
     GithubLinkVersion = "StriLiAtlasLootAddIn: New version is available on https://github.com/sba5827/StriLiAtlasLootAddIn",
     AtlasLootNotFound = "AtlasLoot not found. StriLiAtlasLootAddIn only works properly with AtlasLoot installed/enabled.",
+    NotANumber = "You have to enter a number greater than 0.",
     ItemRollFrame = {
         headerText = "The following item on your wishlist is rolled.",
         buttonPass = "Pass",
+        buttonRoll = "Roll",
         tallymarksText = "Your Tally-marks: Main: %d Sec: %d Token: %d Fail: %d"
     }
 };
@@ -26,11 +30,13 @@ local esES = {
     YourVersion = "StriLiAtlasLootAddIn: Su versión: ",
     AvailableVersion = "StriLiAtlasLootAddIn: Versión disponible: ",
     GithubLinkVersion = "StriLiAtlasLootAddIn: La nueva versión está disponible en https://github.com/sba5827/StriLiAtlasLootAddIn",
-    AtlasLootNotFound = "AtlasLoot not found. StriLiAtlasLootAddIn only works properly with AtlasLoot installed/enabled.",
+    AtlasLootNotFound = "AtlasLoot no encontrado. StriLiAtlasLootAddIn sólo funciona correctamente con AtlasLoot instalado/activado.",
+    NotANumber = "Tienes que introducir un número mayor que 0.",
     ItemRollFrame = {
-        headerText = "The following item on your wishlist is rolled.",
-        buttonPass = "Pass",
-        tallymarksText = "Your Tally-marks: Main: %d Sec: %d Token: %d Fail: %d"
+        headerText = "El siguiente artículo de tu lista de deseos está rodado.",
+        buttonPass = "Pasar",
+        buttonRoll = "Rodar",
+        tallymarksText = "Sus marcas: Main: %d Sec: %d Token: %d Falla: %d"
     }
 };
 

@@ -3,7 +3,7 @@
 ## Author: Truggler
 ## Deps: AtlasLoot
 ## Notes: Remindes player to roll if an item on AtlasLoot wishlist is posted as raidwarning.
-## SavedVariablesPerCharacter:
+## SavedVariablesPerCharacter: StriLiAtlasLoot_CustomRoll
 ## SavedVariables: StriLi_Master, StriLi_LatestVersion, StriLi_RaidMembersDB_members, StriLi_newRaidGroup, StriLi_ItemHistory, StriLi_RulesTxt, StriLiOptions, StriLiDB, StriLiAtlasLootVersion
 ## Version: 0.2.0
 
