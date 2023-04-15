@@ -238,6 +238,9 @@ local function localOnEvent(event, ...)
 			if not StriLiEnabled then
 				StriLi_initAddon();
 			end
+			if StriLiAtlasLoot_CustomRoll == nil then
+				StriLiAtlasLoot_CustomRoll = "";
+			end
 		elseif arg1 == "AtlasLoot" then
 			AtlasLootLoaded = true;
 		end

@@ -87,10 +87,6 @@ function StriLi_initAddon()
         };
     end
 
-    if StriLiAtlasLoot_CustomRoll == nil then
-        StriLiAtlasLoot_CustomRoll = "";
-    end
-
     RaidMembersDB:initFromRawData(StriLi_RaidMembersDB_members);
     StriLi.ItemHistory:initFromRawData(StriLi_ItemHistory);
 
