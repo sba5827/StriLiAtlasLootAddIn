@@ -218,7 +218,7 @@ end
 
 ---@return void
 local function checkIfInRaid()
-	if UnitInRaid("player") then
+	if not UnitInRaid("player") then
 		onRaidLeft();
 	end
 end
@@ -249,6 +249,8 @@ local function localOnEvent(event, ...)
 			local charName = UnitName("player");
 			CharWishList = AtlasLootWishList["Own"][charName];
 			EventFrame:RegisterEvent("CHAT_MSG_RAID_WARNING");
+			EventFrame:RegisterEvent("CHAT_MSG_RAID");
+			EventFrame:RegisterEvent("CHAT_MSG_RAID_LEADER");
 			EventFrame:RegisterEvent("TRADE_ACCEPT_UPDATE");
 			EventFrame:RegisterEvent("BAG_UPDATE");
 			EventFrame:RegisterEvent("PLAYER_LOGOUT");
@@ -257,7 +259,7 @@ local function localOnEvent(event, ...)
 			EventFrame:UnregisterEvent("ADDON_LOADED");
 			checkForAtlasLoot();
 		end
-	elseif event == "CHAT_MSG_RAID_WARNING" then
+	elseif event == "CHAT_MSG_RAID_WARNING" or event=="CHAT_MSG_RAID" or event=="CHAT_MSG_RAID_LEADER" then
 		informPlayerOnDemand(arg1);
 	elseif event == "PLAYER_LOGOUT" and not StriLiEnabled then
 		StriLi_finalizeAddon();
@@ -291,6 +293,12 @@ local function localOnEvent(event, ...)
 		checkIfInRaid();
 	end
 
+end
+
+SLASH_STRILIATLASLOOTADDIN1 = '/slatlas'
+
+SlashCmdList["STRILIATLASLOOTADDIN"] = function(_, _)
+	ItemRollInformFrame_show(0, StriLiAtlasLootAdIn.Lang.ItemRollFrame.headerText_alt);
 end
 
 EventFrame:SetScript("OnEvent", function(_, event, ...) localOnEvent(event, ...); end);

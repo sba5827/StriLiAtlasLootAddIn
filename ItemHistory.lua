@@ -1,7 +1,7 @@
 local _, _, _, StriLiEnabled = GetAddOnInfo("StriLi")
 if not StriLiEnabled then
 
-StriLi.ItemHistory = { items = {}, players = {}, rollTypes = {}, rolls = {}, playerClasses = {}, count = 0, };
+StriLi.ItemHistory = { items = {}, players = {}, rollTypes = {}, rolls = {}, playerClasses = {}, allRolls = {}, count = 0, };
 
 local function getItemID_fromLink(itemLink)
 
@@ -19,7 +19,7 @@ function StriLi.ItemHistory:init()
 
 end
 
-function StriLi.ItemHistory:add(itemLink, player, playerClass, rollType, roll, externIndex)
+function StriLi.ItemHistory:add(itemLink, player, playerClass, rollType, roll, externIndex, allRolls_table)
 
     if externIndex ~= nil and externIndex <= self.count then
         return;
@@ -37,6 +37,7 @@ function StriLi.ItemHistory:add(itemLink, player, playerClass, rollType, roll, e
     table.insert(self.playerClasses, playerClass);
     table.insert(self.rollTypes, rollType);
     table.insert(self.rolls, roll);
+    table.insert(self.allRolls, allRolls_table);
 
     self.count = self.count + 1;
 
@@ -63,7 +64,7 @@ function StriLi.ItemHistory:remove(index)
 
     assert(type(index) == "number");
 
-    if StriLi.master:get() == UnitName("player") then -- if not master this function was called by communication handler -> only edit UI.
+    if StriLi_isPlayerMaster() then -- if not master this function was called by communication handler -> only edit UI.
         local exists, raidMember = pcall(RaidMembersDB.get, RaidMembersDB ,self.players[index]);
 
         if exists then
@@ -80,6 +81,7 @@ function StriLi.ItemHistory:remove(index)
     table.remove(self.playerClasses, index);
     table.remove(self.rollTypes, index);
     table.remove(self.rolls, index);
+    table.remove(self.allRolls, index);                                       
 
     self.count = self.count - 1;
 
@@ -167,6 +169,7 @@ function StriLi.ItemHistory:reset()
         self.playerClasses = {};
         self.rollTypes = {};
         self.rolls = {};
+        self.allRolls = {};                           
     end
 
     self.count = 0;
@@ -183,6 +186,7 @@ function StriLi.ItemHistory:getRawData()
     t["playerClasses"] = self.playerClasses;
     t["rollTypes"] = self.rollTypes;
     t["rolls"] = self.rolls;
+    t["allRolls"] = self.allRolls;                                  
 
     return t;
 
@@ -195,7 +199,7 @@ function StriLi.ItemHistory:initFromRawData(rawData)
     if rawData["count"] == nil then return end
 
     for i = 1, rawData["count"] do
-        self:add(rawData["items"][i], rawData["players"][i], rawData["playerClasses"][i], rawData["rollTypes"][i], rawData["rolls"][i]);
+        self:add(rawData["items"][i], rawData["players"][i], rawData["playerClasses"][i], rawData["rollTypes"][i], rawData["rolls"][i], nil,  rawData["allRolls"][i]);
     end
 
 end

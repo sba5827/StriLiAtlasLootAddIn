@@ -151,11 +151,11 @@ local function updateTallyMarkString()
     end
 end
 
---------------------
----PUBLIC SECTION---
---------------------
+--------------------------------------------------------------------------------
+-------------------------------- PUBLIC SECTION --------------------------------
+--------------------------------------------------------------------------------
 
-function ItemRollInformFrame_show(aItemID)
+function ItemRollInformFrame_show(aItemID, headerText)
 
     local _, localItemLink = GetItemInfo(aItemID)
 
@@ -164,8 +164,10 @@ function ItemRollInformFrame_show(aItemID)
     ItemIcon:SetTexture(GetItemIcon(aItemID));
     updateTallyMarkString();
     CustomRollEditBox:SetText(StriLiAtlasLoot_CustomRoll);
+    if headerText then
+        HeaderFontString:SetText(headerText);
+    else
+        HeaderFontString:SetText(StriLiAtlasLootAdIn.Lang.ItemRollFrame.headerText);
+    end
     ItemRollInformFrame:Show();
 end
-
-
-

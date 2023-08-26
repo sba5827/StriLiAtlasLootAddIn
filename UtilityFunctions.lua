@@ -17,8 +17,12 @@ CONSTS = protect({
     nextLinePatern = "([^\n]*)\n?(.*)",
     msgColorStringStart = "|cffFFFF00",
     msgColorStringEnd = "|r",
+    striLiMsgFlag = "|cffFFFF00<|r|cff33FFF2StriLi|r|cffFFFF00>|r ",                                                                    
 });
 
+function StriLi_isPlayerMaster()
+    return StriLi.master:get() == UnitName("player");
+end                                
 function StriLi_GetRaidIndexOfPlayer(playerName)
 
     for i = 1, GetNumRaidMembers(), 1 do
@@ -30,22 +34,6 @@ function StriLi_GetRaidIndexOfPlayer(playerName)
 
     return 0;
 
-end
-
-function StriLi_GetClassIndex(Class)
-
-    if( Class == "WARRIOR" ) 		then return 1 end
-    if( Class == "PALADIN" ) 		then return 2 end
-    if( Class == "HUNTER" ) 		then return 3 end
-    if( Class == "ROGUE" ) 			then return 4 end
-    if( Class == "PRIEST" ) 		then return 5 end
-    if( Class == "DEATHKNIGHT" ) 	then return 6 end
-    if( Class == "SHAMAN" ) 		then return 7 end
-    if( Class == "MAGE" ) 			then return 8 end
-    if( Class == "WARLOCK" ) 		then return 9 end
-    if( Class == "DRUID" ) 			then return 10 end
-
-    return 0;
 end
 
 function StriLi_initAddon()
@@ -80,6 +68,9 @@ function StriLi_initAddon()
     if StriLi_ItemHistory == nil then
         StriLi_ItemHistory = {};
     end
+    if StriLi_RulesTxt == nil then
+        StriLi_RulesTxt = "";
+    end       
     if StriLiOptions == nil then
         StriLiOptions = {
             ["DUMMY"] = false,
