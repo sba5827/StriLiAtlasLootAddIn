@@ -4,7 +4,7 @@
 This Addon was developed for WoW version 3.3.5a WotLK. No guarantee that it will work with other versions.
 
 ## How to Install
-Download the latest [release](https://github.com/sba5827/StriLiAtlasLootAddIn/releases/tag/1.1.0). Unzip the folder to your WoW Addons folder. Eg.:
+Download the latest [release](https://github.com/sba5827/StriLiAtlasLootAddIn/releases/tag/1.1.1). Unzip the folder to your WoW Addons folder. Eg.:
 
     C:\Users\USERNAME\..\WoW\Interface\AddOns\
 
@@ -14,7 +14,7 @@ Make sure that the folder name of the unzipped folder is StriLiAtlasLootAddIn, o
 
 And **NOT** like:
 
-    C:\Users\USERNAME\..\WoW\Interface\AddOns\StriLiAtlasLootAddIn-1.1.0
+    C:\Users\USERNAME\..\WoW\Interface\AddOns\StriLiAtlasLootAddIn-1.1.1
 
 ## Usage
 StriLiAtlasLootAddIn informs you if an item on your AtlasLoot wishlist is posted in raid. So you won't miss the opportunity to win it.
@@ -36,7 +36,7 @@ Sie können das Fenster zum würfeln auch mit folgendem Befehl öffnen:
     /slatlas
 
 ## Wie man es installiert
-Laden Sie die neueste [Version](https://github.com/sba5827/StriLiAtlasLootAddIn/releases/tag/1.1.0) herunter. Entpacken Sie den Ordner in Ihren WoW Addons Ordner. z.B.:
+Laden Sie die neueste [Version](https://github.com/sba5827/StriLiAtlasLootAddIn/releases/tag/1.1.1) herunter. Entpacken Sie den Ordner in Ihren WoW Addons Ordner. z.B.:
 
     C:\Users\USERNAME\..\WoW\Interface\AddOns\
 
@@ -46,7 +46,7 @@ Achten Sie darauf, dass der Ordnername des entpackten Ordners StriLiAtlasLootAdd
 
 Und **NICHT** wie:
 
-    C:\Benutzer\USERNAME\..\WoW\Interface\AddOns\StriLiAtlasLootAddIn-1.1.0
+    C:\Benutzer\USERNAME\..\WoW\Interface\AddOns\StriLiAtlasLootAddIn-1.1.1
 
 ## Nutzen
 StriLiAtlasLootAddIn informiert Sie, wenn ein Gegenstand auf Ihrer AtlasLoot-Wunschliste im raid geposted wird. So verpassen Sie nicht die Gelegenheit, es zu gewinnen.
