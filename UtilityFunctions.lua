@@ -42,31 +42,31 @@ function StriLi_initAddon()
 
     --local addonVersion = tonumber(GetAddOnMetadata("StriLiAtlasLootAddIn", "Version"));
 
-    if StriLi_LatestVersion ~= nil then
-        --Secure that StriLi_LatestVersion will never be a String.
-        StriLi_LatestVersion = tonumber(StriLi_LatestVersion);
+    if _StriLi_LatestVersion ~= nil then
+        --Secure that _StriLi_LatestVersion will never be a String.
+        _StriLi_LatestVersion = tonumber(_StriLi_LatestVersion);
     end
 
-    if StriLi_LatestVersion == nil then
-        StriLi_LatestVersion = 0.0;
-    elseif StriLi_LatestVersion < 0.0 then
-        StriLi_LatestVersion = 0.0;
+    if _StriLi_LatestVersion == nil then
+        _StriLi_LatestVersion = 0.0;
+    elseif _StriLi_LatestVersion < 0.0 then
+        _StriLi_LatestVersion = 0.0;
     end
-    if StriLi_Master == nil then
+    if _StriLi_Master == nil then
         StriLi.master = ObservableString:new();
         StriLi.master:set("");
     else
         StriLi.master = ObservableString:new();
-        StriLi.master:set(StriLi_Master);
+        StriLi.master:set(_StriLi_Master);
     end
     if StriLi_newRaidGroup == nil then
         StriLi_newRaidGroup = true;
     end
-    if StriLi_RaidMembersDB_members == nil then
-        StriLi_RaidMembersDB_members ={};
+    if _StriLi_RaidMembersDB_members == nil then
+        _StriLi_RaidMembersDB_members ={};
     end
-    if StriLi_ItemHistory == nil then
-        StriLi_ItemHistory = {};
+    if _StriLi_ItemHistory == nil then
+        _StriLi_ItemHistory = {};
     end
     if StriLi_RulesTxt == nil then
         StriLi_RulesTxt = "";
@@ -78,17 +78,17 @@ function StriLi_initAddon()
         };
     end
 
-    RaidMembersDB:initFromRawData(StriLi_RaidMembersDB_members);
-    StriLi.ItemHistory:initFromRawData(StriLi_ItemHistory);
+    RaidMembersDB:initFromRawData(_StriLi_RaidMembersDB_members);
+    StriLi.ItemHistory:initFromRawData(_StriLi_ItemHistory);
 
     StriLi.CommunicationHandler:ShoutVersion();
 
 end
 
 function StriLi_finalizeAddon()
-    StriLi_RaidMembersDB_members = RaidMembersDB:getRawData();
-    StriLi_Master = StriLi.master:get();
-    StriLi_ItemHistory = StriLi.ItemHistory:getRawData();
+    _StriLi_RaidMembersDB_members = RaidMembersDB:getRawData();
+    _StriLi_Master = StriLi.master:get();
+    _StriLi_ItemHistory = StriLi.ItemHistory:getRawData();
 end
 
 ---removes the first occurring 'value'
