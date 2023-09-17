@@ -336,8 +336,8 @@ function StriLi.CommunicationHandler:checkIfUserHasStriLi(name, cbf)
 end
 
 function StriLi.CommunicationHandler:On_VersionCheck(transmittedVersion)
-    if tonumber(StriLi_LatestVersion) < tonumber(transmittedVersion) then
-        StriLi_LatestVersion = tonumber(transmittedVersion);
+    if tonumber(_StriLi_LatestVersion) < tonumber(transmittedVersion) then
+        _StriLi_LatestVersion = tonumber(transmittedVersion);
     end
 end
 
@@ -348,17 +348,17 @@ function StriLi.CommunicationHandler:ShoutVersion()
         local _, instanceType = IsInInstance()
 
         if instanceType == "pvp" then
-            SendAddonMessage("SL_VC", tostring(StriLi_LatestVersion), "BATTLEGROUND");
+            SendAddonMessage("SL_VC", tostring(_StriLi_LatestVersion), "BATTLEGROUND");
         else
-            SendAddonMessage("SL_VC", tostring(StriLi_LatestVersion), "RAID");
+            SendAddonMessage("SL_VC", tostring(_StriLi_LatestVersion), "RAID");
         end
 
     elseif GetNumPartyMembers() > 0 then
-        SendAddonMessage("SL_VC", tostring(StriLi_LatestVersion), "PARTY");
+        SendAddonMessage("SL_VC", tostring(_StriLi_LatestVersion), "PARTY");
     end
 
     if IsInGuild() then
-        SendAddonMessage("SL_VC", tostring(StriLi_LatestVersion), "GUILD");
+        SendAddonMessage("SL_VC", tostring(_StriLi_LatestVersion), "GUILD");
     end
 
 end
